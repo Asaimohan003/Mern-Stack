@@ -19,7 +19,11 @@ const Growth = () => {
   const fetchStats = async () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
-      if (!token) return;
+      if (!token) {
+        setLoading(false);
+        console.warn("You are not LOgged in");
+        return;
+      }
 
       const res = await axios.get(`${baseUrl}/status/count`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -55,19 +59,18 @@ const Growth = () => {
   }
 
   const barData = [
-    { value: stats?.completed, label: "Completed", frontColor: "#4CAF50" },
+    { value: stats?.completed ?? 0, label: "Completed", frontColor: "#4CAF50" },
     {
-      value: stats?.successfullyCompleted,
+      value: stats?.successfullyCompleted ?? 0,
       label: "Success",
       frontColor: "#2196F3",
     },
-    { value: stats?.pending, label: "Pending", frontColor: "#FFC107" },
-    { value: stats?.rejected, label: "Rejected", frontColor: "#F44336" },
+    { value: stats?.pending ?? 0, label: "Pending", frontColor: "#FFC107" },
+    { value: stats?.rejected ?? 0, label: "Rejected", frontColor: "#F44336" },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
       {/* Total Tasks */}
       <View style={styles.headerCard}>
         <Text style={styles.totalTitle}>Total Tasks</Text>
@@ -106,20 +109,21 @@ const Growth = () => {
       </View>
 
       {/* Bar Chart */}
-      <Text style={styles.subTitle}>Task Status Comparison</Text>
+      {/* <Text style={styles.subTitle}>Task Status Comparison</Text>
       <View style={styles.chartWrapper}>
-        {/* <BarChart
-          data={barData}
-          barWidth={35}
-          noOfSections={5}
-          barBorderRadius={6}
-          yAxisThickness={0}
-          xAxisThickness={0}
-          xAxisLabelTextStyle={{ fontSize: 12 }}
-          yAxisTextStyle={{ fontSize: 12 }}
-        /> */}
-      </View>
-      {/* </ScrollView> */}
+        {barData.some((item) => item.value > 0) && (
+          <BarChart
+            data={barData}
+            barWidth={35}
+            noOfSections={5}
+            barBorderRadius={6}
+            yAxisThickness={0}
+            xAxisThickness={0}
+            xAxisLabelTextStyle={{ fontSize: 12 }}
+            yAxisTextStyle={{ fontSize: 12 }}
+          />
+        )}
+      </View> */}
     </SafeAreaView>
   );
 };
@@ -140,11 +144,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "rgba(98, 99, 99, 1)",
     borderWidth: 1,
-    // shadowColor: "#000",
-    // shadowOpacity: 0.1,
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowRadius: 4,
-    // elevation: 4,
   },
   totalTitle: {
     fontSize: 18,

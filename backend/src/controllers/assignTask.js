@@ -2,14 +2,14 @@ import { Tasks } from "../models/taskModel.js";
 
 export const assignTask = async (req, res) => {
   try {
-    const { workerid, title, description, status, name } = req.body;
+    const { workerId, title, description, status, name } = req.body;
 
-    if (!workerid || !title || !description) {
+    if (!workerId || !title || !description) {
       return res
         .status(400)
         .json({ message: "Worker ID, title, and description are required." });
     }
-    const newTask = new Tasks({ workerid, title, description, status, name });
+    const newTask = new Tasks({ workerId, title, description, status, name });
     const savedTask = await newTask.save();
 
     return res.status(201).json({

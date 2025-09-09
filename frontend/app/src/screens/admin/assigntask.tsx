@@ -46,7 +46,7 @@ const AssignTask = () => {
       await axios.post(
         `${baseUrl}/admin/assigntask`,
         {
-          workerid: userId,
+          workerId: userId,
           title,
           description,
           status: "pending",

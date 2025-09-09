@@ -12,3 +12,7 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
+
+# Keep Gifted Charts classes
+-keep class com.github.**** { *; }
+-keep interface com.github.**** { *; }

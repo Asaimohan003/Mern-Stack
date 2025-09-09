@@ -19,7 +19,7 @@ interface Task {
   title: string;
   description: string;
   status: string;
-  workerid: string;
+  workerId: string;
 }
 
 const TaskScreen = () => {
@@ -42,11 +42,11 @@ const TaskScreen = () => {
       });
 
       setProfileData(res.data);
-      const workerid = res.data._id;
+      const workerId = res.data._id;
 
       // 2. Fetch tasks
       const response = await axios.get<{ tasks: Task[]; message: string }>(
-        `${baseUrl}/task/worker/${workerid}`,
+        `${baseUrl}/task/worker/${workerId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

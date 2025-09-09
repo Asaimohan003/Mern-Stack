@@ -23,6 +23,8 @@ import { statusCount } from "./src/controllers/taskStatusCount.js";
 import { upload } from "./src/middleware/storage.js";
 import { uploadFiles } from "./src/controllers/uploadFiles.js";
 import { savePath } from "./src/controllers/savePath.js";
+import { getAllTasks } from "./src/controllers/getAllTasks.js";
+import { teamTask } from "./src/controllers/teamTask.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -58,46 +60,13 @@ app.delete("/delete/user/:id", authChecker, deleteUser);
 app.post("/admin/assigntask", authChecker, assignTask);
 
 // Assign task to multiple workers
-app.post("/admin/assigntask/team", authChecker, async (req, res) => {
-  try {
-    const { workerIds, title, description, teamName } = req.body;
+app.post("/admin/assigntask/team", authChecker, teamTask);
 
-    if (!workerIds || !Array.isArray(workerIds) || workerIds.length === 0) {
-      return res
-        .status(400)
-        .json({ message: "At least one worker ID is required." });
-    }
-    if (!title || !description) {
-      return res
-        .status(400)
-        .json({ message: "Title and description are required." });
-    }
-
-    const newTask = new Tasks({
-      workerIds,
-      title,
-      description,
-      status: "pending",
-      teamName,
-    });
-
-    const savedTask = await newTask.save();
-
-    return res.status(201).json({
-      message: "Task successfully created for multiple workers",
-      task: savedTask,
-    });
-  } catch (error) {
-    console.error("Error creating bulk task:", error);
-    return res.status(500).json({
-      message: "Failed to create bulk task",
-      error: error.message,
-    });
-  }
-});
+//get all tasks
+app.get("/alltasks", authChecker, getAllTasks);
 
 //get task from worker id
-app.get("/task/worker/:workerid", authChecker, workersTask);
+app.get("/task/worker/:workerId", authChecker, workersTask);
 
 //get task by id
 app.get("/task/:id", authChecker, taskByID);

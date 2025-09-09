@@ -23,7 +23,7 @@ interface Task {
   title: string;
   description: string;
   status: string;
-  workerid: string;
+  workerId: string;
   path: string;
 }
 
@@ -161,7 +161,7 @@ const Monitortask = () => {
 
         <View style={styles.card}>
           <Text style={styles.label}>Worker ID</Text>
-          <Text style={styles.value}>{task.workerid}</Text>
+          <Text style={styles.value}>{task.workerId}</Text>
         </View>
 
         {task.path ? (

@@ -1,9 +1,9 @@
 import { Tasks } from "../models/taskModel.js";
 
 export const workersTask = async (req, res) => {
-  const { workerid } = req.params;
+  const { workerId } = req.params;
   try {
-    const tasks = await Tasks.find({ workerid });
+    const tasks = await Tasks.find({ workerId });
 
     if (!tasks || tasks.length === 0) {
       return res.status(200).json({

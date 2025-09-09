@@ -12,7 +12,7 @@ export const deleteUser = async (req, res) => {
     }
 
     // ✅ Delete tasks belonging to the user
-    await Tasks.deleteMany({ workerid: id });
+    await Tasks.deleteMany({ workerId: id });
 
     return res
       .status(200)
