@@ -86,6 +86,8 @@ const TaskUpdate = () => {
       setTask(res.data.task);
       setModalVisible(false);
     } catch (err: any) {
+          console.log("1234512345 test")
+
       console.error("Error updating task:", err.response?.data || err);
       Alert.alert(
         "Error",
