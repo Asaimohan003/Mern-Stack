@@ -40,6 +40,7 @@ const CreateTask = () => {
   const teams = ["React", "Angular", "Marketing", "Management"];
 
   useEffect(() => {
+    console.log("1234512345 test")
     const fetchUsers = async () => {
       try {
         const token = await AsyncStorage.getItem("userToken");
