@@ -3,6 +3,8 @@ import React from "react";
 import { router } from "expo-router";
 
 const Admin = () => {
+      console.log("1234512345 test")
+
   return (
     <View style={styles.statsRow}>
       <TouchableOpacity
